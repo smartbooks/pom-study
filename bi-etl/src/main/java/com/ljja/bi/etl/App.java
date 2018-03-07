@@ -1,7 +1,13 @@
 package com.ljja.bi.etl;
 
-public class App {
-    public static void main(String[] args) {
-        System.out.println("com.ljja.bi.etl.App");
+import java.sql.Driver;
+
+public class App
+{
+    public static void main(String[] args)
+    {
+        Driver d = new oracle.jdbc.driver.OracleDriver();
+        System.out.println(d);
+        System.out.println(App.class);
     }
 }
