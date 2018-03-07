@@ -195,7 +195,12 @@
     <build>
 
         <sourceDirectory>src/main</sourceDirectory>
-		    <testSourceDirectory>src/test</testSourceDirectory>
+        <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+        <outputDirectory>${project.basedir}/target/classes</outputDirectory>
+
+        <testSourceDirectory>src/test</testSourceDirectory>
+        <testOutputDirectory>${project.basedir}/target/test-classes</testOutputDirectory>
+
         <defaultGoal>compile</defaultGoal>
 
         <plugins>
@@ -242,8 +247,42 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!--依赖JAR提取插件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--生成主清单属性-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.ljja.bi.etl.App</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
-
 
 </project>
