@@ -184,6 +184,7 @@
         </dependencies>
     </dependencyManagement>
 
+    <!--给所有模块添加的强制依赖-->
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
